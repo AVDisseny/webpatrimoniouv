@@ -230,7 +230,7 @@ function App() {
                                     rel="noopener noreferrer" 
                                     className="card-category"
                                   >
-                                    {item.link}
+                                    colecion
                                   </a>
                                 </p>
                                 
