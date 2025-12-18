@@ -72,13 +72,15 @@ function App() {
             { id: Date.now().toString(), text: respuesta, isUser: false }
           ]);
         } else {
-          const link = 'https://colecciones.uv.es/s/patrimonio-artistico-es/page/welcome';
-          const imageFixed = 'https://colecciones.uv.es/files/original/ced7a5b304d827c31b4f31fab070763a43abf827.jpg';
+          
 
           const resultsData = results.map((r, idx) => {
             const titulo = decodeHtml(r.titulo ?? r.title ?? 'Sin título');
             const ubicacion = decodeHtml(r.ubicacion ?? r.location ?? '');
             const descripcion = decodeHtml(r.descripcion ?? r.description ?? '');
+            const link = decodeHtml(r.link ?? r.url ?? '');
+            const imagen = decodeHtml(r.imageURL ?? r.imagen ?? '');
+            const coleccion = decodeHtml(r.coleccion ?? r.collection ?? '');
 
             let autor = '';
             const autorRaw = r.autor ?? r.author;
@@ -108,7 +110,8 @@ function App() {
               autor,
               descripcion,
               link,
-              image: imageFixed
+              imagen,
+              coleccion
             };
           });
 
@@ -197,7 +200,7 @@ function App() {
                           <div key={item.id} className="result-card">
                             <div className="card-image">
                               <img 
-                                src={item.image} 
+                                src={item.imagen} 
                                 alt={item.titulo}
                                 onError={(e) => e.target.style.display = 'none'}
                               />
@@ -211,6 +214,13 @@ function App() {
                                   <p className="detail-item">
                                     <span className="detail-icon">✏️</span>
                                     <span className="detail-label">Autor:</span> {item.autor}
+                                  </p>
+                                )}
+
+                                {item.coleccion && (
+                                  <p className="detail-item">
+                                    <span className="detail-icon">📂</span>
+                                    <span className="detail-label">Coleccion:</span> {item.coleccion}
                                   </p>
                                 )}
                                 
@@ -230,7 +240,7 @@ function App() {
                                     rel="noopener noreferrer" 
                                     className="card-category"
                                   >
-                                    {item.link}
+                                    Pagina Coleccion
                                   </a>
                                 </p>
                                 
